@@ -24,13 +24,14 @@ jobs:
           FLYGAMMON_PLAYER_KEY: '0xbc2a568c6d7270611bd13e49e862ac7e5c92e79a18fbc616f65c0d6aa8d6dbcc'
           FLYGAMMON_MAX_GAMES: '1'
         run: |
-          if [ -f solver/solve.py ]; then python -u solver/solve.py; else python -u solver/inspect_chain.py; fi
+          set -o pipefail
+          if [ -f solver/solve.py ]; then python -u solver/solve.py 2>&1 | tee solver-log.txt; else python -u solver/inspect_chain.py 2>&1 | tee solver-log.txt; fi
       - name: Save diagnostics on the Arena branch
         if: always()
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          for f in chain-state.json chain-logs.json solve-result.json; do
+          for f in chain-state.json chain-logs.json solve-result.json solver-log.txt; do
             if [ -f "$f" ]; then git add -f "$f"; fi
           done
           if ! git diff --cached --quiet; then
