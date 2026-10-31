@@ -1,0 +1,15 @@
+p-1 factors: {2: 1, 796363: 1, 714487: 1, 799633: 1, 608831: 1, 714881: 1, 972991: 1, 851197: 1, 569609: 1, 922423: 1, 893339: 1, 569419: 1, 785413: 1, 871883: 1}
+recovered VRF secret: 1115005489235232247465741628251668238965137291949998016917688579803082993725
+state {'gameId': 0, 'turn': 8, 'playerToMove': True, 'committed': True, 'dicePosted': True, 'd1': 2, 'd2': 2, 'streak': 0, 'tokens': 79, 'isSolved': False}
+commit game 0
+Traceback (most recent call last):
+  File "/home/runner/work/nhgjhgolikuj/nhgjhgolikuj/solver/solve.py", line 187, in <module>
+    main()
+  File "/home/runner/work/nhgjhgolikuj/nhgjhgolikuj/solver/solve.py", line 174, in main
+    gid, plies = play_game(client, net, p, s)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/nhgjhgolikuj/nhgjhgolikuj/solver/solve.py", line 121, in play_game
+    client.send('commit')
+  File "/home/runner/work/nhgjhgolikuj/nhgjhgolikuj/solver/solve.py", line 107, in send
+    raise RuntimeError(f'{name} failed: {rc}')
+RuntimeError: commit failed: AttributeDict({'blockHash': HexBytes('0x70e64ee0e560d247528c02b3d83e63359503de740d172132d86e248410ee68fd'), 'blockNumber': 19, 'blockTimestamp': 1793469492, 'contractAddress': None, 'cumulativeGasUsed': 25708, 'effectiveGasPrice': 1000000000, 'from': '0x7CB0a078F307C00e3a95dDe94Ce0832127069857', 'gasUsed': 25708, 'logs': [], 'logsBloom': HexBytes('0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'), 'status': 0, 'to': '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0', 'transactionHash': HexBytes('0xb5d68bd881337718bf49cba57e7cac809bbe624ffe93e12ce395b6fb1ada7235'), 'transactionIndex': 0, 'type': 0})
