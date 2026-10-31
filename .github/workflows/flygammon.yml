@@ -7,7 +7,7 @@ on:
       - '.github/workflows/flygammon.yml'
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   solve:
     runs-on: ubuntu-latest
@@ -24,13 +24,13 @@ jobs:
           FLYGAMMON_PLAYER_KEY: '0xbc2a568c6d7270611bd13e49e862ac7e5c92e79a18fbc616f65c0d6aa8d6dbcc'
         run: |
           if [ -f solver/solve.py ]; then python -u solver/solve.py; else python -u solver/inspect_chain.py; fi
-      - name: Save diagnostics
+      - name: Save diagnostics on the Arena branch
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: flygammon-result
-          path: |
-            chain-state.json
-            chain-logs.json
-            solve-result.json
-          if-no-files-found: ignore
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f chain-state.json chain-logs.json solve-result.json 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git commit -m 'Save Flygammon solver diagnostics'
+            git push origin HEAD:arena/a7ffeaae-nhgjhgolikuj
+          fi
