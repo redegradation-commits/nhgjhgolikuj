@@ -7,6 +7,10 @@ roll and play the player's turns with the supplied model.
 """
 from __future__ import annotations
 import json, math, os, sys, tarfile, time, urllib.request
+import requests
+from requests.exceptions import ConnectionError as ReqConnectionError, Timeout as ReqTimeout, HTTPError, ChunkedEncodingError
+from urllib3.exceptions import ProtocolError
+from web3.exceptions import TimeExhausted
 from pathlib import Path
 from sympy import factorint
 from web3 import Web3
@@ -19,6 +23,28 @@ MAX_GAMES = int(os.environ.get('FLYGAMMON_MAX_GAMES', '30'))
 SKIP_TO = os.environ.get('FLYGAMMON_SKIP_TO')
 GIDS_FILE = os.environ.get('FLYGAMMON_GIDS_FILE', str(Path(__file__).with_name('winning-gids.json')))
 ROOT = Path(__file__).resolve().parents[1]
+
+NETWORK_ERRORS = (ReqConnectionError, ReqTimeout, ChunkedEncodingError, ProtocolError, OSError, TimeExhausted)
+
+def retry_call(fn, desc, attempts=10):
+    last = None
+    for attempt in range(attempts):
+        try:
+            return fn()
+        except HTTPError as e:
+            code = e.response.status_code if e.response is not None else 0
+            if code < 500 and code != 429:
+                raise
+            last = e
+        except NETWORK_ERRORS as e:
+            last = e
+        delay = min(2 ** attempt, 20)
+        print(f'RPC retry {desc} after {type(last).__name__}: {last}; sleep {delay}s', flush=True)
+        time.sleep(delay)
+    raise RuntimeError(f'RPC {desc} failed after {attempts} attempts: {last}')
+
+STATE_FIELDS = ['gameId','turn','playerToMove','committed','dicePosted','d1','d2','streak','tokens','isSolved','boardPacked']
+BOOL_FIELDS = {'playerToMove','committed','dicePosted','isSolved'}
 
 ABI = [
     {'name': n, 'type': 'function', 'stateMutability': 'view', 'inputs': [],
@@ -89,20 +115,49 @@ class Client:
         self.w3 = Web3(Web3.HTTPProvider(URL, request_kwargs={'timeout': 30}))
         self.acct = self.w3.eth.account.from_key(KEY)
         self.c = self.w3.eth.contract(address=ADDR, abi=ABI)
-        self.nonce = self.w3.eth.get_transaction_count(self.acct.address)
-        self.gas_price = self.w3.eth.gas_price or 10**9
+        self.nonce = retry_call(lambda: self.w3.eth.get_transaction_count(self.acct.address), 'get_transaction_count')
+        self.gas_price = retry_call(lambda: self.w3.eth.gas_price or 10**9, 'gas_price')
+        self.chain_id = retry_call(lambda: self.w3.eth.chain_id, 'chain_id')
+        self.state_selectors = {n: '0x' + Web3.keccak(text=n + '()')[:4].hex() for n in STATE_FIELDS}
     def view(self, name):
-        return getattr(self.c.functions, name)().call()
+        return retry_call(lambda: getattr(self.c.functions, name)().call(), f'view {name}')
+    def _state_batch(self):
+        batch = [{'jsonrpc':'2.0','id':i,'method':'eth_call',
+                  'params':[{'to': ADDR, 'data': self.state_selectors[n]}, 'latest']}
+                 for i, n in enumerate(STATE_FIELDS)]
+        req = urllib.request.Request(URL, json.dumps(batch).encode(), {'Content-Type':'application/json'})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            data = json.load(r)
+        if isinstance(data, dict):
+            raise RuntimeError(f'batch RPC returned object: {data}')
+        by_id = {item['id']: item for item in data}
+        out = {}
+        for i, n in enumerate(STATE_FIELDS):
+            item = by_id[i]
+            if 'error' in item:
+                raise RuntimeError(item['error'])
+            v = int(item['result'], 16)
+            out[n] = bool(v) if n in BOOL_FIELDS else v
+        return out
     def state(self):
-        return {n: self.view(n) for n in ['gameId','turn','playerToMove','committed','dicePosted','d1','d2','streak','tokens','isSolved']}
+        return retry_call(self._state_batch, 'state batch')
     def send(self, name, *args):
         fn = getattr(self.c.functions, name)(*args)
-        tx = fn.build_transaction({'from': self.acct.address, 'nonce': self.nonce,
-                                   'gas': 30_000_000, 'gasPrice': self.gas_price,
-                                   'chainId': self.w3.eth.chain_id})
+        tx = retry_call(lambda: fn.build_transaction({'from': self.acct.address, 'nonce': self.nonce,
+                                                      'gas': 30_000_000, 'gasPrice': self.gas_price,
+                                                      'chainId': self.chain_id}), f'build {name}')
         signed = self.acct.sign_transaction(tx)
-        h = self.w3.eth.send_raw_transaction(signed.raw_transaction)
-        rc = self.w3.eth.wait_for_transaction_receipt(h, timeout=60)
+        tx_hash = self.w3.keccak(signed.raw_transaction)
+        def submit():
+            try:
+                return self.w3.eth.send_raw_transaction(signed.raw_transaction)
+            except ValueError as e:
+                msg = str(e).lower()
+                if 'already known' in msg or 'alreadyknown' in msg or 'nonce too low' in msg:
+                    return tx_hash
+                raise
+        retry_call(submit, f'send {name}')
+        rc = retry_call(lambda: self.w3.eth.wait_for_transaction_receipt(tx_hash, timeout=60), f'receipt {name}')
         self.nonce += 1
         if rc.status != 1:
             raise RuntimeError(f'{name} failed: {rc}')
@@ -133,7 +188,7 @@ def play_game(client, net, p, s):
             break
         assert st['gameId'] == gid
         turn = st['turn']
-        board = Board.unpack(client.view('boardPacked'))
+        board = Board.unpack(st['boardPacked'])
         dice = (st['d1'], st['d2'])
         pred = predicted_dice(p, s, gid, turn)
         if dice != pred:
@@ -161,6 +216,7 @@ def main():
     s = recover_secret(p, g, h)
     print('recovered VRF secret:', s, flush=True)
     net = load_model()
+    print('initial state:', client.state(), flush=True)
     if SKIP_TO:
         target = int(SKIP_TO)
         while client.view('gameId') < target:
@@ -193,6 +249,7 @@ def main():
             after = client.state()
             won = after['streak'] > before
             print(f'game {gid} finished plies={plies} won={won} streak={after["streak"]} tokens={after["tokens"]}', flush=True)
+            Path('solve-progress.json').write_text(json.dumps({'last_game': gid, 'won': won, 'state': after}, indent=2))
             games += 1
             if not won:
                 raise RuntimeError(f'predicted win failed at game {gid}; aborting to preserve diagnostics')
@@ -211,6 +268,7 @@ def main():
             after = client.state()
             won = after['streak'] > before
             print(f'game {gid} finished plies={plies} won={won} streak={after["streak"]} tokens={after["tokens"]}', flush=True)
+            Path('solve-progress.json').write_text(json.dumps({'last_game': gid, 'won': won, 'state': after}, indent=2))
             games += 1
             if after['isSolved']:
                 break
