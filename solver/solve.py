@@ -12,7 +12,7 @@ from sympy import factorint
 from web3 import Web3
 from flygammon import Board, FlyNet, choose_2ply, predicted_dice, prove, u_for, dice_from_y
 
-URL = os.environ.get('FLYGAMMON_RPC', 'https://yar1ah3br74nvb3j.instances.ctfcup.online')
+URL = os.environ.get('FLYGAMMON_RPC', 'https://0y4afgh3nvu73pyb.instances.ctfcup.online')
 ADDR = Web3.to_checksum_address(os.environ.get('FLYGAMMON_ADDRESS', '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0'))
 KEY = os.environ['FLYGAMMON_PLAYER_KEY']
 MAX_GAMES = int(os.environ.get('FLYGAMMON_MAX_GAMES', '30'))
