@@ -6,7 +6,7 @@ import urllib.request
 from pathlib import Path
 from web3 import Web3
 
-URL = os.environ.get('FLYGAMMON_RPC', 'https://0y4afgh3nvu73pyb.instances.ctfcup.online')
+URL = os.environ.get('FLYGAMMON_RPC', 'https://ib5nooepv698758z.instances.ctfcup.online')
 ADDR = Web3.to_checksum_address(os.environ.get('FLYGAMMON_ADDRESS', '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0'))
 
 def rpc(method, params):

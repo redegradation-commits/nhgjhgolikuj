@@ -21,7 +21,8 @@ jobs:
       - name: Inspect and solve the supplied CTF instance
         env:
           # This is the instance-specific player key published by the CTF server.
-          FLYGAMMON_PLAYER_KEY: '0x808e6160ebae907b92e4fd1002655fc669c3b510387dd7a27b370001d7544711'
+          FLYGAMMON_PLAYER_KEY: '0x046ee8b4e8e54ef4476f7c9afa6889fc6c9f891d2c8bf4c779a1ed41c6517586'
+          FLYGAMMON_RPC: 'https://ib5nooepv698758z.instances.ctfcup.online'
           FLYGAMMON_MAX_GAMES: '30'
         run: |
           set -o pipefail
