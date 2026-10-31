@@ -97,7 +97,7 @@ class Client:
     def send(self, name, *args):
         fn = getattr(self.c.functions, name)(*args)
         tx = fn.build_transaction({'from': self.acct.address, 'nonce': self.nonce,
-                                   'gas': 2_000_000, 'gasPrice': self.gas_price,
+                                   'gas': 30_000_000, 'gasPrice': self.gas_price,
                                    'chainId': self.w3.eth.chain_id})
         signed = self.acct.sign_transaction(tx)
         h = self.w3.eth.send_raw_transaction(signed.raw_transaction)
