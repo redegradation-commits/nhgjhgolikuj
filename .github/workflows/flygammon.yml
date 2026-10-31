@@ -22,6 +22,7 @@ jobs:
         env:
           # This is the instance-specific player key published by the CTF server.
           FLYGAMMON_PLAYER_KEY: '0xbc2a568c6d7270611bd13e49e862ac7e5c92e79a18fbc616f65c0d6aa8d6dbcc'
+          FLYGAMMON_MAX_GAMES: '1'
         run: |
           if [ -f solver/solve.py ]; then python -u solver/solve.py; else python -u solver/inspect_chain.py; fi
       - name: Save diagnostics on the Arena branch
