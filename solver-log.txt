@@ -1,53 +1,422 @@
-Traceback (most recent call last):
-  File "/home/runner/work/nhgjhgolikuj/nhgjhgolikuj/solver/solve.py", line 281, in <module>
-    main()
-  File "/home/runner/work/nhgjhgolikuj/nhgjhgolikuj/solver/solve.py", line 214, in main
-    client = Client()
-             ^^^^^^^^
-  File "/home/runner/work/nhgjhgolikuj/nhgjhgolikuj/solver/solve.py", line 118, in __init__
-    self.nonce = retry_call(lambda: self.w3.eth.get_transaction_count(self.acct.address), 'get_transaction_count')
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/nhgjhgolikuj/nhgjhgolikuj/solver/solve.py", line 33, in retry_call
-    return fn()
-           ^^^^
-  File "/home/runner/work/nhgjhgolikuj/nhgjhgolikuj/solver/solve.py", line 118, in <lambda>
-    self.nonce = retry_call(lambda: self.w3.eth.get_transaction_count(self.acct.address), 'get_transaction_count')
-                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/web3/eth/eth.py", line 471, in get_transaction_count
-    return self._get_transaction_count(account, block_identifier)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/web3/module.py", line 106, in caller
-    result = w3.manager.request_blocking(
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/web3/manager.py", line 225, in request_blocking
-    response = self._make_request(method, params)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/web3/manager.py", line 156, in _make_request
-    return request_func(method, params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/web3/middleware/base.py", line 53, in middleware
-    return self.response_processor(method, make_request(method, params))
-                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/web3/middleware/base.py", line 53, in middleware
-    return self.response_processor(method, make_request(method, params))
-                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/web3/middleware/base.py", line 53, in middleware
-    return self.response_processor(method, make_request(method, params))
-                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  [Previous line repeated 2 more times]
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/web3/_utils/caching/caching_utils.py", line 249, in wrapper
-    return func(provider, method, params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/web3/providers/rpc/rpc.py", line 157, in make_request
-    raw_response = self._make_request(method, request_data)
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/web3/providers/rpc/rpc.py", line 144, in _make_request
-    raise e
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/web3/providers/rpc/rpc.py", line 134, in _make_request
-    return self._request_session_manager.make_post_request(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/web3/_utils/http_session_manager.py", line 151, in make_post_request
-    response.raise_for_status()
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/requests/models.py", line 1167, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://0y4afgh3nvu73pyb.instances.ctfcup.online/
+initial state: {'gameId': 0, 'turn': 0, 'playerToMove': True, 'committed': False, 'dicePosted': False, 'd1': 0, 'd2': 0, 'streak': 0, 'tokens': 80, 'isSolved': False, 'boardPacked': 696898306605509556961503464848615880523838}
+client version: anvil/v1.8.7
+storage slots 0..7: ['0x000000000000000000000000b8737797896d0f0544ea576ffa932b3666938381', '0x000000000000000000000000d7917672413a206f4e7097ba0be878509965b670', '0x0000000000000000000000000000000000000000000000000000000000000050', '0x0000000000000000000000000000000000000000000000000000000000000000', '0x0000000000000000000000000000000000000000000000000000000000000000', '0x0000000000000000000000000000000000000000000000000000000000000000', '0x0000000000000000000000000000000000000000000000000000000000000001', '0x000000000000000000000000000008000003b03d000005ec00000c014000003e']
+anvil shortcut unavailable: RuntimeError {'code': -32601, 'message': 'method anvil_setStorageAt not permitted'}
+p-1 factors: {2: 1, 577151: 1, 692933: 1, 610921: 1, 726601: 1, 858673: 1, 1018097: 1, 682637: 1, 771233: 1, 1037347: 1, 763031: 1, 629843: 1, 1029689: 1, 945089: 1}
+recovered VRF secret: 60267467882787006864694380837196731869710039098184832236586536491058671603038
+candidate win 1 plies 46
+candidate win 2 plies 44
+candidate win 3 plies 50
+candidate win 6 plies 68
+candidate win 8 plies 56
+candidate win 9 plies 64
+candidate win 10 plies 60
+candidate win 11 plies 36
+candidate win 12 plies 38
+candidate win 13 plies 60
+candidate win 15 plies 48
+candidate win 16 plies 56
+candidate win 17 plies 54
+candidate win 20 plies 42
+candidate win 21 plies 36
+candidate win 22 plies 44
+candidate win 24 plies 60
+candidate win 25 plies 44
+candidate win 26 plies 42
+candidate win 27 plies 82
+selected targets: [1, 2, 3, 8, 10, 11, 12, 15, 16, 17, 20, 21, 22, 25, 26]
+commit game 1
+g1 t0 dice=(3, 1) move=[(7, 3), (5, 1)]
+g1 t2 dice=(2, 2) move=[(5, 2), (5, 2), (12, 2), (12, 2)]
+g1 t4 dice=(5, 1) move=[(7, 5), (2, 1)]
+g1 t6 dice=(3, 3) move=[(24, 3), (5, 3), (5, 3), (7, 3)]
+g1 t8 dice=(4, 2) move=[(23, 4), (21, 2)]
+g1 t10 dice=(1, 6) move=[(23, 1), (10, 6)]
+g1 t12 dice=(6, 1) move=[(22, 6), (16, 1)]
+g1 t14 dice=(4, 1) move=[(15, 1), (14, 4)]
+g1 t16 dice=(4, 4) move=[(12, 4), (8, 4), (19, 4), (19, 4)]
+g1 t18 dice=(1, 2) move=[(2, 1), (4, 2)]
+g1 t20 dice=(6, 1) move=[(10, 6), (10, 1)]
+g1 t22 dice=(4, 5) move=[(4, 4), (9, 5)]
+g1 t24 dice=(3, 1) move=[(3, 3), (4, 1)]
+g1 t26 dice=(3, 3) move=[(4, 3), (12, 3), (9, 3), (12, 3)]
+g1 t28 dice=(4, 4) move=[(4, 4), (6, 4), (9, 4), (5, 4)]
+g1 t30 dice=(6, 3) move=[(15, 6), (15, 3)]
+g1 t32 dice=(1, 4) move=[(12, 1), (9, 4)]
+g1 t34 dice=(5, 5) move=[(11, 5), (6, 5), (4, 5), (4, 5)]
+g1 t36 dice=(6, 1) move=[(5, 6), (0, 1)]
+g1 t38 dice=(6, 3) move=[(3, 6), (2, 3)]
+g1 t40 dice=(2, 3) move=[(1, 2), (2, 3)]
+g1 t42 dice=(6, 6) move=[(3, 6), (2, 6), (1, 6), (1, 6)]
+g1 t44 dice=(5, 2) move=[(1, 5), (0, 2)]
+g1 t46 dice=(5, 5) move=[(0, 5)]
+game 1 finished plies=24 won=True streak=1 tokens=79
+commit game 2
+g2 t0 dice=(1, 4) move=[(23, 1), (23, 4)]
+g2 t2 dice=(5, 2) move=[(12, 5), (12, 2)]
+g2 t4 dice=(1, 1) move=[(24, 1), (5, 1), (5, 1), (23, 1)]
+g2 t6 dice=(3, 2) move=[(7, 3), (12, 2)]
+g2 t8 dice=(3, 3) move=[(22, 3), (19, 3), (22, 3), (19, 3)]
+g2 t10 dice=(2, 4) move=[(16, 2), (14, 4)]
+g2 t12 dice=(2, 6) move=[(7, 2), (16, 6)]
+g2 t14 dice=(6, 5) move=[(10, 6), (10, 5)]
+g2 t16 dice=(2, 2) move=[(4, 2), (4, 2), (5, 2), (5, 2)]
+g2 t18 dice=(2, 4) move=[(7, 2), (7, 4)]
+g2 t20 dice=(3, 5) move=[(3, 3), (5, 5)]
+g2 t22 dice=(1, 1) move=[(10, 1), (10, 1), (12, 1), (12, 1)]
+g2 t24 dice=(2, 1) move=[(11, 2), (11, 1)]
+g2 t26 dice=(4, 3) move=[(10, 4), (6, 3)]
+g2 t28 dice=(5, 3) move=[(9, 5), (9, 3)]
+g2 t30 dice=(2, 3) move=[(3, 2), (4, 3)]
+g2 t32 dice=(5, 5) move=[(6, 5), (9, 5), (4, 5), (4, 5)]
+g2 t34 dice=(4, 2) move=[(3, 4), (1, 2)]
+g2 t36 dice=(5, 3) move=[(4, 5), (2, 3)]
+g2 t38 dice=(5, 4) move=[(5, 5), (3, 4)]
+g2 t40 dice=(6, 6) move=[(5, 6), (5, 6), (2, 6), (1, 6)]
+g2 t42 dice=(1, 3) move=[(0, 1), (1, 3)]
+g2 t44 dice=(1, 6) move=[(0, 1), (0, 6)]
+game 2 finished plies=23 won=True streak=2 tokens=78
+commit game 3
+g3 t0 dice=(3, 2) move=[(23, 3), (12, 2)]
+g3 t2 dice=(3, 4) move=[(23, 3), (12, 4)]
+g3 t4 dice=(1, 6) move=[(5, 1), (10, 6)]
+g3 t6 dice=(2, 5) move=[(8, 2), (12, 5)]
+g3 t8 dice=(6, 1) move=[(12, 6), (12, 1)]
+g3 t10 dice=(6, 5) move=[(7, 6), (6, 5)]
+g3 t12 dice=(1, 4) move=[(7, 1), (11, 4)]
+g3 t14 dice=(2, 5) move=[(20, 5), (15, 2)]
+g3 t16 dice=(1, 6) move=[(5, 1), (13, 6)]
+g3 t18 dice=(2, 4) move=[(24, 4), (7, 2)]
+g3 t20 dice=(3, 5) move=[(5, 3), (7, 5)]
+g3 t22 dice=(2, 5) move=[(24, 2), (22, 5)]
+g3 t24 dice=(1, 5) move=[(17, 5), (12, 1)]
+g3 t26 dice=(6, 3) move=[(11, 6), (5, 3)]
+g3 t28 dice=(1, 4) move=[(1, 1), (4, 4)]
+g3 t30 dice=(4, 6) move=[(6, 4), (6, 6)]
+g3 t32 dice=(2, 6) move=[(7, 2), (7, 6)]
+g3 t34 dice=(4, 5) move=[(4, 4), (4, 5)]
+g3 t36 dice=(4, 4) move=[(5, 4), (5, 4), (5, 4), (5, 4)]
+g3 t38 dice=(6, 2) move=[(2, 6), (1, 2)]
+g3 t40 dice=(5, 1) move=[(2, 5), (0, 1)]
+g3 t42 dice=(5, 6) move=[(2, 5), (2, 6)]
+g3 t44 dice=(6, 2) move=[(1, 6), (1, 2)]
+g3 t46 dice=(5, 6) move=[(1, 5), (1, 6)]
+g3 t48 dice=(4, 5) move=[(1, 4), (0, 5)]
+g3 t50 dice=(6, 3) move=[(0, 6), (0, 3)]
+game 3 finished plies=26 won=True streak=3 tokens=77
+commit game 8
+g8 t0 dice=(2, 6) move=[(12, 2), (23, 6)]
+g8 t2 dice=(4, 1) move=[(17, 4), (13, 1)]
+g8 t4 dice=(1, 1) move=[(5, 1), (5, 1), (7, 1), (6, 1)]
+g8 t6 dice=(2, 5) move=[(12, 2), (12, 5)]
+g8 t8 dice=(1, 2) move=[(5, 1), (23, 2)]
+g8 t10 dice=(2, 1) move=[(7, 1), (6, 2)]
+g8 t12 dice=(1, 1) move=[(4, 1), (4, 1), (10, 1), (10, 1)]
+g8 t14 dice=(6, 2) move=[(12, 6), (6, 2)]
+g8 t16 dice=(4, 1) move=[(9, 4), (5, 1)]
+g8 t18 dice=(1, 4) move=[(5, 1), (9, 4)]
+g8 t20 dice=(5, 5) move=[(7, 5), (7, 5), (12, 5), (12, 5)]
+g8 t22 dice=(5, 2) move=[(7, 5), (7, 2)]
+g8 t24 dice=(1, 5) move=[(24, 1), (5, 5)]
+g8 t26 dice=(1, 2) move=[(23, 1), (2, 2)]
+g8 t28 dice=(5, 4) move=[(24, 4), (20, 5)]
+g8 t30 dice=(5, 1) move=[(15, 5), (10, 1)]
+g8 t32 dice=(5, 2) move=[(9, 5), (4, 2)]
+g8 t34 dice=(2, 4) move=[(5, 2), (3, 4)]
+g8 t36 dice=(2, 3) move=[(5, 2), (2, 3)]
+g8 t38 dice=(3, 5) move=[(2, 3), (4, 5)]
+g8 t40 dice=(1, 2) move=[(0, 1), (2, 2)]
+g8 t42 dice=(1, 1) move=[(3, 1), (3, 1), (3, 1), (5, 1)]
+g8 t44 dice=(4, 1) move=[(4, 4), (0, 1)]
+g8 t46 dice=(2, 5) move=[(4, 2), (4, 5)]
+g8 t48 dice=(1, 5) move=[(4, 1), (4, 5)]
+g8 t50 dice=(1, 4) move=[(0, 1), (3, 4)]
+g8 t52 dice=(5, 3) move=[(2, 5), (2, 3)]
+g8 t54 dice=(1, 3) move=[(0, 1), (2, 3)]
+g8 t56 dice=(2, 3) move=[(2, 2), (0, 3)]
+game 8 finished plies=29 won=True streak=4 tokens=76
+commit game 10
+g10 t0 dice=(1, 2) move=[(23, 1), (12, 2)]
+g10 t2 dice=(2, 2) move=[(5, 2), (5, 2), (12, 2), (23, 2)]
+g10 t4 dice=(6, 1) move=[(10, 6), (5, 1)]
+g10 t6 dice=(6, 6) move=[]
+g10 t8 dice=(2, 3) move=[(24, 3)]
+g10 t10 dice=(3, 3) move=[(24, 3), (24, 3), (7, 3), (12, 3)]
+g10 t12 dice=(1, 1) move=[(7, 1), (7, 1), (21, 1), (21, 1)]
+g10 t14 dice=(1, 1) move=[(3, 1), (2, 1), (1, 1), (4, 1)]
+g10 t16 dice=(2, 5) move=[(4, 2), (9, 5)]
+g10 t18 dice=(6, 6) move=[]
+g10 t20 dice=(5, 5) move=[]
+g10 t22 dice=(5, 3) move=[(24, 3), (10, 5)]
+g10 t24 dice=(2, 1) move=[(3, 1), (2, 2)]
+g10 t26 dice=(4, 4) move=[(6, 4), (6, 4), (21, 4), (17, 4)]
+g10 t28 dice=(2, 5) move=[(5, 2), (13, 5)]
+g10 t30 dice=(4, 2) move=[(8, 4), (12, 2)]
+g10 t32 dice=(4, 5) move=[(12, 4), (10, 5)]
+g10 t34 dice=(5, 4) move=[(20, 5), (8, 4)]
+g10 t36 dice=(2, 6) move=[(20, 6), (14, 2)]
+g10 t38 dice=(2, 2) move=[(3, 2), (3, 2), (12, 2), (15, 2)]
+g10 t40 dice=(4, 5) move=[(13, 4), (10, 5)]
+g10 t42 dice=(4, 3) move=[(9, 4), (5, 3)]
+g10 t44 dice=(5, 4) move=[(4, 5), (4, 4)]
+g10 t46 dice=(5, 2) move=[(4, 5), (4, 2)]
+g10 t48 dice=(6, 2) move=[(5, 6), (2, 2)]
+g10 t50 dice=(3, 2) move=[(5, 3), (2, 2)]
+g10 t52 dice=(5, 5) move=[(5, 5), (5, 5), (2, 5), (2, 5)]
+g10 t54 dice=(5, 6) move=[(2, 5), (1, 6)]
+g10 t56 dice=(6, 6) move=[(1, 6), (0, 6), (0, 6), (0, 6)]
+g10 t58 dice=(5, 2) move=[(0, 5), (0, 2)]
+g10 t60 dice=(1, 6) move=[(0, 1), (0, 6)]
+game 10 finished plies=31 won=True streak=5 tokens=75
+commit game 11
+g11 t0 dice=(6, 1) move=[(12, 6), (7, 1)]
+g11 t2 dice=(5, 1) move=[(12, 5), (23, 1)]
+g11 t4 dice=(6, 1) move=[(12, 6), (22, 1)]
+g11 t6 dice=(4, 2) move=[(24, 4), (24, 2)]
+g11 t8 dice=(2, 6) move=[(20, 6), (14, 2)]
+g11 t10 dice=(5, 5) move=[(5, 5), (5, 5), (22, 5), (17, 5)]
+g11 t12 dice=(3, 3) move=[(7, 3), (7, 3), (7, 3), (12, 3)]
+g11 t14 dice=(5, 4) move=[(6, 5), (5, 4)]
+g11 t16 dice=(3, 4) move=[(12, 3), (9, 4)]
+g11 t18 dice=(1, 2) move=[(4, 1), (5, 2)]
+g11 t20 dice=(2, 6) move=[(6, 2), (9, 6)]
+g11 t22 dice=(5, 2) move=[(12, 2), (10, 5)]
+g11 t24 dice=(6, 5) move=[(12, 6), (6, 5)]
+g11 t26 dice=(3, 5) move=[(6, 3), (4, 5)]
+g11 t28 dice=(4, 4) move=[(3, 4), (3, 4), (3, 4), (3, 4)]
+g11 t30 dice=(1, 4) move=[(0, 1), (4, 4)]
+g11 t32 dice=(6, 6) move=[(5, 6), (5, 6), (5, 6), (4, 6)]
+g11 t34 dice=(4, 3) move=[(1, 4), (1, 3)]
+g11 t36 dice=(6, 6) move=[(1, 6), (0, 6), (0, 6)]
+game 11 finished plies=19 won=True streak=6 tokens=74
+commit game 12
+g12 t0 dice=(5, 3) move=[(7, 5), (5, 3)]
+g12 t2 dice=(5, 1) move=[(12, 5), (23, 1)]
+g12 t4 dice=(6, 5) move=[(23, 6), (22, 5)]
+g12 t6 dice=(5, 1) move=[(12, 5), (7, 1)]
+g12 t8 dice=(5, 6) move=[(5, 5), (6, 6)]
+g12 t10 dice=(3, 6) move=[(12, 3), (9, 6)]
+g12 t12 dice=(4, 4) move=[(7, 4), (17, 4), (13, 4), (9, 4)]
+g12 t14 dice=(1, 2) move=[(5, 1), (17, 2)]
+g12 t16 dice=(6, 4) move=[(15, 6), (9, 4)]
+g12 t18 dice=(4, 4) move=[(12, 4), (8, 4), (12, 4), (8, 4)]
+g12 t20 dice=(5, 6) move=[(7, 5), (7, 6)]
+g12 t22 dice=(5, 2) move=[(4, 5), (1, 2)]
+g12 t24 dice=(5, 2) move=[(4, 5), (4, 2)]
+g12 t26 dice=(2, 4) move=[(3, 2), (3, 4)]
+g12 t28 dice=(6, 3) move=[(5, 6), (2, 3)]
+g12 t30 dice=(5, 4) move=[(5, 5), (5, 4)]
+g12 t32 dice=(6, 2) move=[(5, 6), (1, 2)]
+g12 t34 dice=(6, 6) move=[(2, 6), (2, 6), (2, 6), (1, 6)]
+g12 t36 dice=(1, 2) move=[(0, 1), (0, 2)]
+g12 t38 dice=(2, 2) move=[(0, 2)]
+game 12 finished plies=20 won=True streak=7 tokens=73
+commit game 15
+g15 t0 dice=(5, 3) move=[(7, 5), (5, 3)]
+g15 t2 dice=(6, 1) move=[(12, 6), (6, 1)]
+g15 t4 dice=(3, 1) move=[(7, 3), (5, 1)]
+g15 t6 dice=(2, 2) move=[(24, 2), (5, 2), (5, 2), (23, 2)]
+g15 t8 dice=(6, 1) move=[(24, 1)]
+g15 t10 dice=(4, 5) move=[(24, 5), (23, 4)]
+g15 t12 dice=(5, 1) move=[(24, 1), (12, 5)]
+g15 t14 dice=(2, 1) move=[(19, 2), (17, 1)]
+g15 t16 dice=(6, 6) move=[(12, 6), (6, 6), (12, 6), (6, 6)]
+g15 t18 dice=(6, 4) move=[(16, 6), (23, 4)]
+g15 t20 dice=(4, 4) move=[(7, 4), (12, 4), (19, 4), (19, 4)]
+g15 t22 dice=(3, 4) move=[(8, 3), (10, 4)]
+g15 t24 dice=(6, 5) move=[(15, 6), (15, 5)]
+g15 t26 dice=(1, 2) move=[(10, 1), (6, 2)]
+g15 t28 dice=(5, 4) move=[(9, 5), (9, 4)]
+g15 t30 dice=(6, 5) move=[(5, 6), (4, 5)]
+g15 t32 dice=(4, 4) move=[(3, 4), (3, 4), (3, 4), (4, 4)]
+g15 t34 dice=(2, 2) move=[(2, 2), (2, 2), (4, 2), (4, 2)]
+g15 t36 dice=(2, 1) move=[(5, 2), (3, 1)]
+g15 t38 dice=(6, 3) move=[(5, 6), (5, 3)]
+g15 t40 dice=(3, 2) move=[(2, 3), (2, 2)]
+g15 t42 dice=(4, 6) move=[(2, 4), (2, 6)]
+g15 t44 dice=(1, 4) move=[(0, 1), (0, 4)]
+g15 t46 dice=(6, 2) move=[(0, 6), (0, 2)]
+g15 t48 dice=(3, 4) move=[(0, 3), (0, 4)]
+game 15 finished plies=25 won=True streak=8 tokens=72
+commit game 16
+g16 t0 dice=(3, 6) move=[(12, 3), (23, 6)]
+g16 t2 dice=(4, 2) move=[(24, 2), (12, 4)]
+g16 t4 dice=(5, 1) move=[(24, 5), (8, 1)]
+g16 t6 dice=(5, 5) move=[(24, 5), (12, 5), (19, 5), (14, 5)]
+g16 t8 dice=(3, 2) move=[(7, 3), (4, 2)]
+g16 t10 dice=(4, 2) move=[(7, 4), (5, 2)]
+g16 t12 dice=(5, 3) move=[(9, 5), (7, 3)]
+g16 t14 dice=(5, 4) move=[(24, 5), (23, 4)]
+g16 t16 dice=(3, 2) move=[(5, 3), (22, 2)]
+g16 t18 dice=(5, 2) move=[(7, 5), (7, 2)]
+g16 t20 dice=(4, 4) move=[(4, 4), (4, 4), (5, 4), (5, 4)]
+g16 t22 dice=(3, 5) move=[(12, 3), (9, 5)]
+g16 t24 dice=(1, 4) move=[(4, 1), (19, 4)]
+g16 t26 dice=(2, 5) move=[(19, 5), (14, 2)]
+g16 t28 dice=(5, 1) move=[(20, 5), (15, 1)]
+g16 t30 dice=(4, 3) move=[(12, 4), (8, 3)]
+g16 t32 dice=(6, 6) move=[(14, 6), (8, 6), (15, 6), (9, 6)]
+g16 t34 dice=(1, 2) move=[(12, 1), (11, 2)]
+g16 t36 dice=(2, 3) move=[(24, 2), (22, 3)]
+g16 t38 dice=(1, 4) move=[(19, 4), (15, 1)]
+g16 t40 dice=(5, 1) move=[(14, 5), (9, 1)]
+g16 t42 dice=(3, 1) move=[(8, 3), (5, 1)]
+g16 t44 dice=(4, 6) move=[(3, 4), (5, 6)]
+g16 t46 dice=(4, 6) move=[(3, 4), (5, 6)]
+g16 t48 dice=(4, 5) move=[(3, 4), (4, 5)]
+g16 t50 dice=(4, 3) move=[(3, 4), (2, 3)]
+g16 t52 dice=(5, 6) move=[(5, 6), (2, 5)]
+g16 t54 dice=(6, 6) move=[(2, 6), (1, 6), (1, 6), (0, 6)]
+g16 t56 dice=(2, 5) move=[(0, 5)]
+game 16 finished plies=29 won=True streak=9 tokens=71
+commit game 17
+g17 t0 dice=(2, 2) move=[(5, 2), (5, 2), (12, 2), (12, 2)]
+g17 t2 dice=(3, 5) move=[(5, 3), (7, 5)]
+g17 t4 dice=(4, 2) move=[(10, 4), (6, 2)]
+g17 t6 dice=(1, 1) move=[(5, 1), (7, 1), (6, 1), (23, 1)]
+g17 t8 dice=(1, 3) move=[(22, 1), (7, 3)]
+g17 t10 dice=(2, 1) move=[(3, 2), (4, 1)]
+g17 t12 dice=(2, 4) move=[(21, 2), (19, 4)]
+g17 t14 dice=(4, 1) move=[(15, 1), (14, 4)]
+g17 t16 dice=(1, 2) move=[(23, 1), (12, 2)]
+g17 t18 dice=(6, 6) move=[(12, 6), (6, 6), (12, 6), (6, 6)]
+g17 t20 dice=(3, 6) move=[(22, 3), (19, 6)]
+g17 t22 dice=(3, 2) move=[(24, 2), (13, 3)]
+g17 t24 dice=(3, 5) move=[(22, 3), (10, 5)]
+g17 t26 dice=(6, 1) move=[(19, 6), (13, 1)]
+g17 t28 dice=(4, 1) move=[(12, 4), (10, 1)]
+g17 t30 dice=(3, 1) move=[(8, 3), (5, 1)]
+g17 t32 dice=(3, 3) move=[(10, 3), (7, 3), (10, 3), (7, 3)]
+g17 t34 dice=(5, 1) move=[(9, 5), (4, 1)]
+g17 t36 dice=(3, 3) move=[(2, 3), (2, 3), (5, 3), (2, 3)]
+g17 t38 dice=(5, 2) move=[(5, 5), (5, 2)]
+g17 t40 dice=(1, 3) move=[(0, 1), (4, 3)]
+g17 t42 dice=(4, 1) move=[(3, 4), (4, 1)]
+g17 t44 dice=(4, 2) move=[(3, 4), (1, 2)]
+g17 t46 dice=(3, 4) move=[(4, 3), (3, 4)]
+g17 t48 dice=(3, 1) move=[(4, 3), (4, 1)]
+g17 t50 dice=(4, 4) move=[(3, 4), (3, 4), (3, 4), (1, 4)]
+g17 t52 dice=(2, 1) move=[(1, 1), (0, 2)]
+g17 t54 dice=(5, 2) move=[(0, 5), (0, 2)]
+game 17 finished plies=28 won=True streak=10 tokens=70
+commit game 20
+g20 t0 dice=(3, 5) move=[(5, 3), (7, 5)]
+g20 t2 dice=(3, 1) move=[(7, 3), (5, 1)]
+g20 t4 dice=(4, 4) move=[(12, 4), (12, 4), (23, 4), (23, 4)]
+g20 t6 dice=(2, 3) move=[(12, 2), (7, 3)]
+g20 t8 dice=(4, 6) move=[(10, 4), (12, 6)]
+g20 t10 dice=(1, 2) move=[(12, 1), (11, 2)]
+g20 t12 dice=(4, 6) move=[(19, 4), (15, 6)]
+g20 t14 dice=(1, 5) move=[(5, 1), (19, 5)]
+g20 t16 dice=(3, 3) move=[(4, 3), (8, 3), (14, 3), (11, 3)]
+g20 t18 dice=(6, 6) move=[(6, 6), (6, 6), (8, 6), (8, 6)]
+g20 t20 dice=(5, 6) move=[(5, 5)]
+g20 t22 dice=(2, 3) move=[(2, 2), (4, 3)]
+g20 t24 dice=(2, 1) move=[(2, 2), (1, 1)]
+g20 t26 dice=(1, 2) move=[(4, 1), (3, 2)]
+g20 t28 dice=(2, 5) move=[(9, 2), (9, 5)]
+g20 t30 dice=(6, 4) move=[(7, 4), (5, 6)]
+g20 t32 dice=(4, 4) move=[(3, 4), (4, 4), (4, 4), (5, 4)]
+g20 t34 dice=(4, 4) move=[(2, 4), (2, 4), (1, 4), (1, 4)]
+g20 t36 dice=(3, 3) move=[(1, 3), (0, 3), (0, 3), (0, 3)]
+g20 t38 dice=(5, 2) move=[(0, 5), (0, 2)]
+g20 t40 dice=(1, 5) move=[(0, 1), (0, 5)]
+g20 t42 dice=(4, 1) move=[(0, 4)]
+game 20 finished plies=22 won=True streak=11 tokens=69
+commit game 21
+g21 t0 dice=(6, 1) move=[(12, 6), (7, 1)]
+g21 t2 dice=(1, 4) move=[(12, 4), (8, 1)]
+g21 t4 dice=(6, 2) move=[(23, 6), (12, 2)]
+g21 t6 dice=(3, 2) move=[(24, 2), (17, 3)]
+g21 t8 dice=(6, 6) move=[(6, 6), (6, 6), (14, 6), (8, 6)]
+g21 t10 dice=(2, 6) move=[(10, 2), (8, 6)]
+g21 t12 dice=(2, 4) move=[(5, 2), (7, 4)]
+g21 t14 dice=(2, 3) move=[(7, 2), (7, 3)]
+g21 t16 dice=(4, 5) move=[(12, 4), (12, 5)]
+g21 t18 dice=(2, 5) move=[(24, 2), (8, 5)]
+g21 t20 dice=(5, 5) move=[(7, 5), (22, 5), (17, 5), (12, 5)]
+g21 t22 dice=(6, 6) move=[(7, 6), (5, 6), (5, 6), (5, 6)]
+g21 t24 dice=(1, 1) move=[(0, 1), (0, 1), (1, 1), (4, 1)]
+g21 t26 dice=(4, 2) move=[(3, 4), (2, 2)]
+g21 t28 dice=(1, 2) move=[(0, 1), (2, 2)]
+g21 t30 dice=(6, 6) move=[(5, 6), (5, 6), (3, 6), (3, 6)]
+g21 t32 dice=(1, 1) move=[(0, 1), (2, 1), (1, 1), (3, 1)]
+g21 t34 dice=(1, 2) move=[(0, 1), (2, 2)]
+g21 t36 dice=(6, 3) move=[(0, 6), (0, 3)]
+game 21 finished plies=19 won=True streak=12 tokens=68
+commit game 22
+g22 t0 dice=(5, 5) move=[(7, 5), (7, 5), (12, 5), (12, 5)]
+g22 t2 dice=(4, 2) move=[(7, 4), (5, 2)]
+g22 t4 dice=(6, 3) move=[(23, 6), (17, 3)]
+g22 t6 dice=(3, 4) move=[(24, 4), (23, 3)]
+g22 t8 dice=(3, 5) move=[(7, 3), (12, 5)]
+g22 t10 dice=(2, 1) move=[(24, 1), (23, 2)]
+g22 t12 dice=(3, 6) move=[(7, 3), (12, 6)]
+g22 t14 dice=(2, 1) move=[(6, 2), (5, 1)]
+g22 t16 dice=(3, 2) move=[(4, 3), (12, 2)]
+g22 t18 dice=(1, 4) move=[(7, 1), (5, 4)]
+g22 t20 dice=(1, 4) move=[(6, 1), (21, 4)]
+g22 t22 dice=(3, 1) move=[(17, 3), (10, 1)]
+g22 t24 dice=(2, 6) move=[(14, 2), (20, 6)]
+g22 t26 dice=(6, 6) move=[(9, 6), (14, 6), (20, 6), (14, 6)]
+g22 t28 dice=(6, 3) move=[(12, 6), (6, 3)]
+g22 t30 dice=(5, 6) move=[(8, 5), (8, 6)]
+g22 t32 dice=(4, 5) move=[(3, 4), (4, 5)]
+g22 t34 dice=(3, 6) move=[(3, 3), (5, 6)]
+g22 t36 dice=(1, 1) move=[(0, 1), (1, 1), (1, 1), (4, 1)]
+g22 t38 dice=(4, 6) move=[(3, 4), (5, 6)]
+g22 t40 dice=(3, 3) move=[(2, 3), (2, 3), (2, 3), (5, 3)]
+g22 t42 dice=(6, 3) move=[(3, 6), (2, 3)]
+g22 t44 dice=(5, 5) move=[(3, 5), (3, 5), (0, 5), (0, 5)]
+game 22 finished plies=23 won=True streak=13 tokens=67
+commit game 25
+g25 t0 dice=(6, 1) move=[(12, 6), (7, 1)]
+g25 t2 dice=(5, 6) move=[(5, 5), (6, 6)]
+g25 t4 dice=(1, 6) move=[(24, 1), (12, 6)]
+g25 t6 dice=(2, 3) move=[(5, 2), (6, 3)]
+g25 t8 dice=(3, 3) move=[(7, 3), (7, 3), (12, 3), (12, 3)]
+g25 t10 dice=(6, 6) move=[(12, 6), (23, 6), (23, 6), (23, 6)]
+g25 t12 dice=(5, 4) move=[(6, 5), (5, 4)]
+g25 t14 dice=(3, 6) move=[(9, 3), (9, 6)]
+g25 t16 dice=(1, 1) move=[(6, 1), (17, 1), (17, 1), (17, 1)]
+g25 t18 dice=(1, 3) move=[(3, 1), (5, 3)]
+g25 t20 dice=(4, 6) move=[(16, 4), (16, 6)]
+g25 t22 dice=(1, 4) move=[(10, 1), (16, 4)]
+g25 t24 dice=(2, 6) move=[(12, 2), (10, 6)]
+g25 t26 dice=(4, 6) move=[(9, 4), (12, 6)]
+g25 t28 dice=(2, 5) move=[(6, 2), (4, 5)]
+g25 t30 dice=(3, 6) move=[(4, 3), (5, 6)]
+g25 t32 dice=(4, 5) move=[(4, 4), (4, 5)]
+g25 t34 dice=(3, 3) move=[(2, 3), (2, 3), (5, 3), (5, 3)]
+g25 t36 dice=(3, 6) move=[(2, 3), (3, 6)]
+g25 t38 dice=(2, 1) move=[(1, 2), (0, 1)]
+g25 t40 dice=(3, 6) move=[(2, 3), (3, 6)]
+g25 t42 dice=(3, 5) move=[(1, 3), (1, 5)]
+g25 t44 dice=(5, 3) move=[(0, 5), (0, 3)]
+game 25 finished plies=23 won=True streak=14 tokens=66
+commit game 26
+g26 t0 dice=(5, 6) move=[(23, 6), (17, 5)]
+g26 t2 dice=(6, 1) move=[(23, 6), (17, 1)]
+g26 t4 dice=(5, 5) move=[(5, 5), (5, 5), (7, 5), (7, 5)]
+g26 t6 dice=(2, 2) move=[(5, 2), (5, 2), (7, 2), (12, 2)]
+g26 t8 dice=(3, 4) move=[(12, 3), (9, 4)]
+g26 t10 dice=(6, 4) move=[(16, 6), (12, 4)]
+g26 t12 dice=(2, 4) move=[(8, 4), (4, 2)]
+g26 t14 dice=(2, 2) move=[(5, 2), (12, 2), (12, 2), (12, 2)]
+g26 t16 dice=(3, 6) move=[(3, 3), (10, 6)]
+g26 t18 dice=(4, 1) move=[(10, 4), (6, 1)]
+g26 t20 dice=(3, 2) move=[(5, 3), (4, 2)]
+g26 t22 dice=(2, 5) move=[(5, 2), (10, 5)]
+g26 t24 dice=(2, 2) move=[(3, 2), (3, 2), (5, 2), (5, 2)]
+g26 t26 dice=(1, 2) move=[(1, 1), (3, 2)]
+g26 t28 dice=(4, 6) move=[(10, 4), (10, 6)]
+g26 t30 dice=(3, 6) move=[(6, 3), (4, 6)]
+g26 t32 dice=(3, 1) move=[(2, 3), (0, 1)]
+g26 t34 dice=(6, 4) move=[(3, 6), (3, 4)]
+g26 t36 dice=(5, 3) move=[(3, 5), (2, 3)]
+g26 t38 dice=(4, 2) move=[(2, 4), (1, 2)]
+g26 t40 dice=(6, 6) move=[(2, 6), (2, 6), (1, 6), (0, 6)]
+g26 t42 dice=(1, 5) move=[(0, 1), (0, 5)]
+game 26 finished plies=22 won=True streak=15 tokens=65
+FLAG_RESPONSE: FLAG: ctfcup{4057a8da2e53455baa246cafbf75235e}
+

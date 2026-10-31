@@ -1,15 +1,16 @@
 {
-  "flag_response": "not solved yet (streak < N)\n",
+  "flag_response": "FLAG: ctfcup{4057a8da2e53455baa246cafbf75235e}\n",
   "state": {
-    "gameId": 1,
+    "gameId": 27,
     "turn": 0,
     "playerToMove": true,
     "committed": false,
     "dicePosted": false,
     "d1": 0,
     "d2": 0,
-    "streak": 0,
-    "tokens": 79,
-    "isSolved": false
+    "streak": 15,
+    "tokens": 65,
+    "isSolved": true,
+    "boardPacked": 696898306605509556961503464848615880523838
   }
 }
