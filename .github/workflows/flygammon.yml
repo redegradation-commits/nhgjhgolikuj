@@ -25,13 +25,13 @@ jobs:
           FLYGAMMON_MAX_GAMES: '1'
         run: |
           set -o pipefail
-          if [ -f solver/solve.py ]; then python -u solver/solve.py 2>&1 | tee solver-log.txt; else python -u solver/inspect_chain.py 2>&1 | tee solver-log.txt; fi
+          python -u solver/inspect_tx.py 2>&1 | tee solver-log.txt
       - name: Save diagnostics on the Arena branch
         if: always()
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          for f in chain-state.json chain-logs.json solve-result.json solver-log.txt; do
+          for f in chain-state.json chain-logs.json solve-result.json solver-log.txt tx-dump.json; do
             if [ -f "$f" ]; then git add -f "$f"; fi
           done
           if ! git diff --cached --quiet; then
