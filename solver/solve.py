@@ -116,10 +116,13 @@ class Client:
 
 
 def play_game(client, net, p, s):
-    gid = client.view('gameId')
-    print('commit game', gid, flush=True)
-    client.send('commit')
-    player_won = None
+    st = client.state()
+    gid = st['gameId']
+    if st['committed']:
+        print('resume committed game', gid, 'turn', st['turn'], flush=True)
+    else:
+        print('commit game', gid, flush=True)
+        client.send('commit')
     plies = 0
     while True:
         st = client.wait(lambda x: (not x['committed']) or (x['playerToMove'] and x['dicePosted']),
