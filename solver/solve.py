@@ -15,8 +15,9 @@ from flygammon import Board, FlyNet, choose_2ply, predicted_dice, prove, u_for, 
 URL = os.environ.get('FLYGAMMON_RPC', 'https://yar1ah3br74nvb3j.instances.ctfcup.online')
 ADDR = Web3.to_checksum_address(os.environ.get('FLYGAMMON_ADDRESS', '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0'))
 KEY = os.environ['FLYGAMMON_PLAYER_KEY']
-MAX_GAMES = int(os.environ.get('FLYGAMMON_MAX_GAMES', '20'))
+MAX_GAMES = int(os.environ.get('FLYGAMMON_MAX_GAMES', '30'))
 SKIP_TO = os.environ.get('FLYGAMMON_SKIP_TO')
+GIDS_FILE = os.environ.get('FLYGAMMON_GIDS_FILE', str(Path(__file__).with_name('winning-gids.json')))
 ROOT = Path(__file__).resolve().parents[1]
 
 ABI = [
@@ -165,22 +166,54 @@ def main():
         while client.view('gameId') < target:
             client.send('skip')
         print('skipped to', client.view('gameId'), flush=True)
+    targets = None
+    if Path(GIDS_FILE).exists():
+        targets = json.loads(Path(GIDS_FILE).read_text())
+        print('target game ids:', targets, flush=True)
     games = 0
-    while games < MAX_GAMES:
-        st = client.state()
-        print('state', st, flush=True)
-        if st['isSolved']:
-            break
-        if st['tokens'] == 0:
-            raise RuntimeError('out of tokens')
-        before = st['streak']
-        gid, plies = play_game(client, net, p, s)
-        after = client.state()
-        won = after['streak'] > before
-        print(f'game {gid} finished plies={plies} won={won} streak={after["streak"]} tokens={after["tokens"]}', flush=True)
-        games += 1
-        if after['isSolved']:
-            break
+    if targets:
+        for target in targets:
+            st = client.state()
+            if st['isSolved']:
+                break
+            if st['committed']:
+                # Finish the current committed game first.
+                pass
+            else:
+                while client.view('gameId') < target:
+                    client.send('skip')
+                cur = client.view('gameId')
+                if cur != target:
+                    print('skipping past target', target, 'current', cur, flush=True)
+                    continue
+            if st['tokens'] == 0:
+                raise RuntimeError('out of tokens')
+            before = client.view('streak')
+            gid, plies = play_game(client, net, p, s)
+            after = client.state()
+            won = after['streak'] > before
+            print(f'game {gid} finished plies={plies} won={won} streak={after["streak"]} tokens={after["tokens"]}', flush=True)
+            games += 1
+            if not won:
+                raise RuntimeError(f'predicted win failed at game {gid}; aborting to preserve diagnostics')
+            if after['isSolved']:
+                break
+    else:
+        while games < MAX_GAMES:
+            st = client.state()
+            print('state', st, flush=True)
+            if st['isSolved']:
+                break
+            if st['tokens'] == 0:
+                raise RuntimeError('out of tokens')
+            before = st['streak']
+            gid, plies = play_game(client, net, p, s)
+            after = client.state()
+            won = after['streak'] > before
+            print(f'game {gid} finished plies={plies} won={won} streak={after["streak"]} tokens={after["tokens"]}', flush=True)
+            games += 1
+            if after['isSolved']:
+                break
     with urllib.request.urlopen(URL.rstrip('/') + '/flag', timeout=30) as r:
         flag = r.read().decode()
     print('FLAG_RESPONSE:', flag, flush=True)

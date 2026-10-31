@@ -156,14 +156,15 @@ class FlyNet:
     def __init__(self, path):
         # The supplied checkpoint is a flat sequence of little-endian f32 values.
         a = np.fromfile(path, dtype='<f4')
+        # Burn stores Linear.weight as [in, out] in row-major order.
         n = 80*203
-        self.w1 = a[:n].reshape(80, 203); a = a[n:]
+        self.w1 = a[:n].reshape(203, 80).T.copy(); a = a[n:]
         self.b1 = a[:80].copy(); a = a[80:]
         n = 80*80
-        self.w2 = a[:n].reshape(80, 80); a = a[n:]
+        self.w2 = a[:n].reshape(80, 80).T.copy(); a = a[n:]
         self.b2 = a[:80].copy(); a = a[80:]
         n = 5*80
-        self.w3 = a[:n].reshape(5, 80); a = a[n:]
+        self.w3 = a[:n].reshape(80, 5).T.copy(); a = a[n:]
         self.b3 = a[:5].copy(); a = a[5:]
         assert len(a) == 0
 

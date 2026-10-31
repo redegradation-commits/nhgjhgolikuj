@@ -11,7 +11,7 @@ permissions:
 jobs:
   solve:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -22,10 +22,10 @@ jobs:
         env:
           # This is the instance-specific player key published by the CTF server.
           FLYGAMMON_PLAYER_KEY: '0xbc2a568c6d7270611bd13e49e862ac7e5c92e79a18fbc616f65c0d6aa8d6dbcc'
-          FLYGAMMON_MAX_GAMES: '1'
+          FLYGAMMON_MAX_GAMES: '30'
         run: |
           set -o pipefail
-          python -u solver/inspect_tx.py 2>&1 | tee solver-log.txt
+          python -u solver/solve.py 2>&1 | tee solver-log.txt
       - name: Save diagnostics on the Arena branch
         if: always()
         run: |
