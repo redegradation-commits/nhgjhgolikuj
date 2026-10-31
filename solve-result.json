@@ -1,0 +1,15 @@
+{
+  "flag_response": "not solved yet (streak < N)\n",
+  "state": {
+    "gameId": 1,
+    "turn": 0,
+    "playerToMove": true,
+    "committed": false,
+    "dicePosted": false,
+    "d1": 0,
+    "d2": 0,
+    "streak": 0,
+    "tokens": 79,
+    "isSolved": false
+  }
+}

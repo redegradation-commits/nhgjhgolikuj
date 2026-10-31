@@ -3,14 +3,30 @@ recovered VRF secret: 1115005489235232247465741628251668238965137291949998016917
 state {'gameId': 0, 'turn': 8, 'playerToMove': True, 'committed': True, 'dicePosted': True, 'd1': 2, 'd2': 2, 'streak': 0, 'tokens': 79, 'isSolved': False}
 resume committed game 0 turn 8
 g0 t8 dice=(2, 2) move=[(2, 2), (5, 2), (5, 2), (12, 2)]
-Traceback (most recent call last):
-  File "/home/runner/work/nhgjhgolikuj/nhgjhgolikuj/solver/solve.py", line 190, in <module>
-    main()
-  File "/home/runner/work/nhgjhgolikuj/nhgjhgolikuj/solver/solve.py", line 177, in main
-    gid, plies = play_game(client, net, p, s)
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/nhgjhgolikuj/nhgjhgolikuj/solver/solve.py", line 147, in play_game
-    client.send('playerMove', froms, dies)
-  File "/home/runner/work/nhgjhgolikuj/nhgjhgolikuj/solver/solve.py", line 107, in send
-    raise RuntimeError(f'{name} failed: {rc}')
-RuntimeError: playerMove failed: AttributeDict({'blockHash': HexBytes('0x43951de203a71dc90f3ee27c48f69edd8d44c05f4c080c8e9c7d55a816e43b23'), 'blockNumber': 20, 'blockTimestamp': 1793469708, 'contractAddress': None, 'cumulativeGasUsed': 2000000, 'effectiveGasPrice': 1000000000, 'from': '0x7CB0a078F307C00e3a95dDe94Ce0832127069857', 'gasUsed': 2000000, 'logs': [], 'logsBloom': HexBytes('0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'), 'status': 0, 'to': '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0', 'transactionHash': HexBytes('0xfa6f6e68aaee9deeebb0eff9ab53dc9e94f7cabbbc0064de798f870e53ff0deb'), 'transactionIndex': 0, 'type': 0})
+g0 t10 dice=(4, 4) move=[(7, 4), (10, 4), (6, 4), (12, 4)]
+g0 t12 dice=(4, 5) move=[(22, 5), (17, 4)]
+g0 t14 dice=(5, 5) move=[(8, 5), (13, 5), (20, 5), (15, 5)]
+g0 t16 dice=(5, 2) move=[(7, 5), (8, 2)]
+g0 t18 dice=(6, 4) move=[(23, 6), (10, 4)]
+g0 t20 dice=(6, 1) move=[(24, 1)]
+g0 t22 dice=(1, 6) move=[(24, 1), (6, 6)]
+g0 t24 dice=(6, 3) move=[(6, 6), (3, 3)]
+g0 t26 dice=(6, 3) move=[(23, 3), (20, 6)]
+g0 t28 dice=(1, 2) move=[(14, 2), (12, 1)]
+g0 t30 dice=(2, 6) move=[(23, 2), (21, 6)]
+g0 t32 dice=(3, 2) move=[(11, 3), (8, 2)]
+g0 t34 dice=(6, 3) move=[(15, 6), (9, 3)]
+g0 t36 dice=(3, 5) move=[(3, 3), (6, 5)]
+g0 t38 dice=(2, 4) move=[(23, 2), (5, 4)]
+g0 t40 dice=(3, 6) move=[(24, 3), (21, 6)]
+g0 t42 dice=(6, 2) move=[]
+g0 t44 dice=(1, 6) move=[]
+g0 t46 dice=(4, 4) move=[(24, 4), (20, 4), (16, 4), (12, 4)]
+g0 t48 dice=(1, 6) move=[(8, 1), (15, 6)]
+g0 t50 dice=(3, 5) move=[(3, 3), (6, 5)]
+g0 t52 dice=(6, 5) move=[(9, 6), (5, 5)]
+g0 t54 dice=(1, 5) move=[(7, 5), (0, 1)]
+g0 t56 dice=(6, 2) move=[(3, 6), (1, 2)]
+game 0 finished plies=25 won=False streak=0 tokens=79
+FLAG_RESPONSE: not solved yet (streak < N)
+
